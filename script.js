@@ -81,6 +81,7 @@ const filterByTurnoverElement = document.getElementById("filterByTurnover");
 const findLogoByNameDropdown = document.getElementById("findLogoByName");
 const alphabeticallySortElement = document.getElementById("alphabeticallySort");
 const companyProfitsReduceElement = document.getElementById("companyProfitsReduce");
+const removeFirstCompanyShiftElement = document.getElementById("removeFirstCompanyShift");
 
 // EVENT LISTENERS
 
@@ -114,6 +115,11 @@ alphabeticallySortElement.addEventListener("click", function(){
 companyProfitsReduceElement.addEventListener("click", function(){
     const totalProfits = companyProfitsReduce(techCompanies);
     displayTotalProfits(totalProfits);
+});
+
+removeFirstCompanyShiftElement.addEventListener("click", function(){
+    const array = removeFirstCompany(techCompanies);
+    renderArray(array);
 });
 
 
@@ -207,4 +213,7 @@ function displayTotalProfits(total){
     totalProfitsDisplay.textContent = `The total company profits are ${total}` 
 }
 
-
+function removeFirstCompany(array){
+    array.shift();
+    return array;
+}
