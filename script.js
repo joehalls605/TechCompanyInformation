@@ -82,6 +82,9 @@ const findLogoByNameDropdown = document.getElementById("findLogoByName");
 const alphabeticallySortElement = document.getElementById("alphabeticallySort");
 const companyProfitsReduceElement = document.getElementById("companyProfitsReduce");
 const removeFirstCompanyShiftElement = document.getElementById("removeFirstCompanyShift");
+const addFirstCompanyShiftElement = document.getElementById("addFirstCompanyShift");
+const removeLastCompanyPopElement = document.getElementById("removeLastCompanyPop");
+const removeSpecifiedCompanyDropdown = document.getElementById("removeSpecifiedCompany");
 
 // EVENT LISTENERS
 
@@ -122,6 +125,17 @@ removeFirstCompanyShiftElement.addEventListener("click", function(){
     renderArray(array);
 });
 
+addFirstCompanyShiftElement.addEventListener("click", function(){
+    const array = addFirstCompany(techCompanies);
+    renderArray(array);
+});
+
+removeLastCompanyPopElement.addEventListener("click", function(){
+    const array = removeLastCompany(techCompanies);
+    renderArray(array);
+});
+
+removeSpecifiedCompanyDropdown.addEventListener("change", removeSpecifiedCompany);
 
 
 // ARRAY RENDERING
@@ -216,4 +230,36 @@ function displayTotalProfits(total){
 function removeFirstCompany(array){
     array.shift();
     return array;
+}
+
+function addFirstCompany(array){
+    let newCompany =     {
+        name: "Pied Piper 2",
+        logo: "./images/pied-piper-2.png",
+        category: "E-commerce",
+        yearFounded: 1994,
+        revenue: 432.8
+    };
+    array.unshift(newCompany);
+    return array;
+}
+
+function removeLastCompany(array){
+    array.pop();
+    return array;
+}
+
+function removeSpecifiedCompany() {
+    // Get the selected options from the multi-select dropdown
+    const selectedOptions = Array.from(removeSpecifiedCompanyDropdown.selectedOptions).map(option => option.value.toLowerCase());
+    
+    // Filter the techCompanies array, keeping only those not selected
+    const filteredCompanies = techCompanies.filter(company => !selectedOptions.includes(company.name.toLowerCase()));
+    
+    // Update the techCompanies array
+    techCompanies.length = 0; // Clear the original array
+    techCompanies.push(...filteredCompanies); // Push the filtered companies back into the original array
+
+    // Re-render the updated array
+    renderArray(techCompanies);
 }
