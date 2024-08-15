@@ -28,13 +28,6 @@ const techCompanies = [
         revenue: 60.3
     },
     {
-        name: "Meta",
-        logo: "./images/meta.png",
-        category: "Social Media",
-        yearFounded: 2004,
-        revenue: 118.5
-    },
-    {
         name: "Microsoft",
         logo: "./images/microsoft.png",
         category: "Software",
@@ -63,6 +56,13 @@ const techCompanies = [
         revenue: 0.8
     },
     {
+        name: "Meta",
+        logo: "./images/meta.png",
+        category: "Social Media",
+        yearFounded: 2004,
+        revenue: 118.5
+    },
+    {
         name: "Yandex",
         logo: "./images/yandex.png",
         category: "Software",
@@ -78,7 +78,8 @@ const logoListElement = document.getElementById("logoList");
 
 const randomiseElement = document.getElementById("randomise");
 const filterByTurnoverElement = document.getElementById("filterByTurnover");
-
+const findLogoByNameDropdown = document.getElementById("findLogoByName");
+const alphabeticallySortElement = document.getElementById("alphabeticallySort");
 
 // EVENT LISTENERS
 
@@ -87,25 +88,30 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
-
 // Randomise Element
-
 randomiseElement.addEventListener("click", function(){
     const array = randomiseArray(techCompanies);
     renderArray(array);
 });
 
 // Filter by turnover
-
-document.addEventListener("click", function(){
+filterByTurnoverElement.addEventListener("click", function(){
     const array = filterByTurnover(techCompanies);
+    renderArray(array);
+});
+
+// Find logo by name
+findLogoByNameDropdown.addEventListener("change", findLogoByName);
+
+// Alphabetically sort
+alphabeticallySortElement.addEventListener("click", function(){
+    const array = alphabeticallySort(techCompanies);
     renderArray(array);
 });
 
 
 
 // ARRAY RENDERING
-
 
 function renderArray(array){
     logoListElement.innerHTML = "";
@@ -151,5 +157,36 @@ function filterByTurnover(array){
     return sortedByRevenue;
 }
 
+function findLogoByName(){
+    const selectedValue = findLogoByNameDropdown.value.toLowerCase();
+    console.log("Selected value", selectedValue);
+
+    const company = techCompanies.find(company => company.name.toLowerCase() === selectedValue);
+
+    if(company){
+        logoListElement.innerHTML = "";
+        const logoImg = document.createElement("img");
+        logoImg.src = company.logo;
+        logoImg.alt = company.name + "logo";
+
+        const companyName = document.createElement("span");
+        companyName.textContent = company.name;
+
+        logoListElement.appendChild(logoImg);
+        logoListElement.appendChild(companyName);
+    }
+    else{
+        console.log("company not found", selectedValue);
+    }
+}
+
+function alphabeticallySort(array){
+    const sortedAlphabeticaly = array.sort((a,b) => {
+        if(a.name.toLowerCase() < b.name.toLowerCase()) return -1; // meaning a should come before b
+        if(a.name.toLowerCase() > b.name.toLowerCase()) return 1; // meaning b should come before a
+        return 0;
+    })
+    return sortedAlphabeticaly
+}
 
 
