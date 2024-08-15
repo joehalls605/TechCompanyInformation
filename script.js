@@ -80,6 +80,7 @@ const randomiseElement = document.getElementById("randomise");
 const filterByTurnoverElement = document.getElementById("filterByTurnover");
 const findLogoByNameDropdown = document.getElementById("findLogoByName");
 const alphabeticallySortElement = document.getElementById("alphabeticallySort");
+const companyProfitsReduceElement = document.getElementById("companyProfitsReduce");
 
 // EVENT LISTENERS
 
@@ -107,6 +108,12 @@ findLogoByNameDropdown.addEventListener("change", findLogoByName);
 alphabeticallySortElement.addEventListener("click", function(){
     const array = alphabeticallySort(techCompanies);
     renderArray(array);
+});
+
+// Company profits reduce
+companyProfitsReduceElement.addEventListener("click", function(){
+    const totalProfits = companyProfitsReduce(techCompanies);
+    displayTotalProfits(totalProfits);
 });
 
 
@@ -187,6 +194,17 @@ function alphabeticallySort(array){
         return 0;
     })
     return sortedAlphabeticaly
+}
+
+function companyProfitsReduce(array){
+    const totalProfits = array.reduce((total, item) => {
+        return total + item.revenue;
+    }, 0);
+    return totalProfits;
+}
+function displayTotalProfits(total){
+    const totalProfitsDisplay = document.getElementById("totalProfitsDisplay");
+    totalProfitsDisplay.textContent = `The total company profits are ${total}` 
 }
 
 
