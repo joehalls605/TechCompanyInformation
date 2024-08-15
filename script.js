@@ -4,82 +4,107 @@ const techCompanies = [
         logo: "./images/amazon.png",
         category: "E-commerce",
         yearFounded: 1994,
-        revenue: "469.8B"
+        revenue: 469.8
     },
     {
         name: "Baidu",
         logo: "./images/baidu.png",
         category: "Software",
         yearFounded: 2000,
-        revenue: "18.5B"
+        revenue: 18.5
     },
     {
         name: "Google",
         logo: "./images/google.png",
         category: "Software",
         yearFounded: 1998,
-        revenue: "282.8B"
+        revenue: 282.8
     },
     {
         name: "Lenovo",
         logo: "./images/lenovo.png",
         category: "Hardware",
         yearFounded: 1984,
-        revenue: "60.3B"
+        revenue: 60.3
     },
     {
         name: "Meta",
         logo: "./images/meta.png",
         category: "Social Media",
         yearFounded: 2004,
-        revenue: "118.5B"
+        revenue: 118.5
     },
     {
         name: "Microsoft",
         logo: "./images/microsoft.png",
         category: "Software",
         yearFounded: 1975,
-        revenue: "211.9B"
+        revenue: 211.9
     },
     {
         name: "Ripple",
         logo: "./images/ripple.png",
         category: "Fintech",
         yearFounded: 2012,
-        revenue: "1.0B"
+        revenue: 1.0
     },
     {
         name: "PiedPiper",
         logo: "./images/pied-piper.png",
         category: "Software",
         yearFounded: 2016,
-        revenue: "0.5B"
+        revenue: 0.5
     },
     {
         name: "Vocera",
         logo: "./images/vocera.png",
         category: "Healthcare",
         yearFounded: 2000,
-        revenue: "0.8B"
+        revenue: 0.8
     },
     {
         name: "Yandex",
         logo: "./images/yandex.png",
         category: "Software",
         yearFounded: 1997,
-        revenue: "12.6B"
+        revenue: 12.6
     }
 ];
 
 
-const randomiseElement = document.getElementById("randomise");
+// DOM ELEMENTS
+
 const logoListElement = document.getElementById("logoList");
 
+const randomiseElement = document.getElementById("randomise");
+const filterByTurnoverElement = document.getElementById("filterByTurnover");
+
+
+// EVENT LISTENERS
+
+document.addEventListener("DOMContentLoaded", function(){
+    renderArray(techCompanies);
+});
+
+
+
+// Randomise Element
 
 randomiseElement.addEventListener("click", function(){
     const array = randomiseArray(techCompanies);
     renderArray(array);
 });
+
+// Filter by turnover
+
+document.addEventListener("click", function(){
+    const array = filterByTurnover(techCompanies);
+    renderArray(array);
+});
+
+
+
+// ARRAY RENDERING
 
 
 function renderArray(array){
@@ -104,6 +129,9 @@ function renderArray(array){
     });
 }
 
+// ARRAY FUNCTIONS
+
+// Randomise Array
 
 function randomiseArray(array) {  // Accept the array as an argument
     for (let i = array.length - 1; i > 0; i--) {
@@ -112,5 +140,16 @@ function randomiseArray(array) {  // Accept the array as an argument
     }
     return array;  // Return the shuffled array
 }
+
+function filterByTurnover(array){
+    const sortedByRevenue = array.sort((a,b) => b.revenue - a.revenue);
+    /*
+    b.revenue - a.revenue: This subtracts the revenue of object a from the revenue of object b.
+    If b.revenue is greater than a.revenue, the result is positive, meaning b should come before a (for descending order).
+    If b.revenue is less than a.revenue, the result is negative, meaning a should come before b.
+    */
+    return sortedByRevenue;
+}
+
 
 
